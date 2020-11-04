@@ -1,2 +1,23 @@
-<h1>Restaurants#show</h1>
-<p>Find me in app/views/restaurants/show.html.erb</p>
+<div class="container">
+  <h1><%= @restaurant.name %></h1>
+  <p>Address: <%= @restaurant.address %></p>
+  <p>Phone: <%= @restaurant.phone_number %></p>
+  <p>Category: <%= @restaurant.category %></p>
+
+  <br>
+  <h3>Add Review</h3>
+
+  <%= simple_form_for [@restaurant, @review] do |f| %>
+    <%= f.input :rating, as: :radio_buttons, collection: ["1", "2", "3", "4", "5"] %>
+    <%= f.input :content %>
+    <%= f.submit class: 'btn btn-primary'%>
+  <% end %>
+  <br>
+  <ul>
+    <% @restaurant.reviews.each do |review| %>
+      <li>Ratings: <%= "⭐️" * review.rating %> </li>
+      <li>Content: <%= review.content %> </li>
+    <% end %>
+  </ul>
+  <%= link_to 'Back to restaurants list', restaurants_path  %>
+</div>
